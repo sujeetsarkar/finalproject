@@ -1,0 +1,569 @@
+Student.java
+
+package lastName;
+
+ 
+
+public class Student {
+
+  
+
+   //class attributes
+
+   private String name;
+
+   private int id;
+
+   private float gpa;
+
+  
+
+   //default constructor
+
+   public Student() {
+
+       name = "";
+
+       id = 0;
+
+       gpa = 0;
+
+   }
+
+   //constructor
+
+   public Student(String _name, int _id, float _gpa) {
+
+       name = _name;
+
+       id = _id;
+
+       gpa = _gpa;
+
+   }
+
+   //print method to output student attributes on screen
+
+   public void printStudent(){
+
+       System.out.print(" "); //creates offset for alignment
+
+       System.out.print("Student name: ");
+
+       System.out.println(name);
+
+       System.out.print(" "); //creates offset for alignment
+
+       System.out.print("Student ID: ");
+
+       System.out.println(id);
+
+       System.out.print(" "); //creates offset for alignment
+
+       System.out.print("Student GPA: ");
+
+       System.out.println(gpa);  
+
+   }
+
+  
+
+}
+
+ 
+UnderGradStudent.java
+
+package lastName;
+
+ 
+
+public class UndergradStudent extends Student{
+
+  
+
+   //class attributes
+
+   private boolean isTransfer;
+
+  
+
+   //constructor
+
+   public UndergradStudent(String name, int id, float gpa, boolean _isTransfer) {
+
+       //calling base class's constructor
+
+       super(name, id, gpa);
+
+       //initializing additional attributes
+
+       isTransfer = _isTransfer;
+
+   }
+
+  
+
+   //print method to output student attributes on screen
+
+   public void printStudent(){
+
+       //calling base class's print method
+
+       super.printStudent();
+
+       //printing additional attributes
+
+       System.out.print(" "); //creates offset for alignment
+
+       System.out.print("Transfer Student: ");
+
+       System.out.println(isTransfer);
+
+   }
+
+ 
+
+}
+
+GradeStudent.java
+
+package lastName;
+
+ 
+
+public class GradStudent extends Student{
+
+  
+
+   //class attributes
+
+   private String college;
+
+  
+
+   //constructor
+
+   public GradStudent(String name, int id, float gpa, String _college) {
+
+       //calling base class's constructor
+
+       super(name, id, gpa);
+
+       //initializing additional attributes
+
+       college = _college;
+
+   }
+
+  
+
+   //print method to output student attributes on screen
+
+   public void printStudent(){
+
+       //calling base class's print method
+
+       super.printStudent();
+
+       //printing additional attributes
+
+       System.out.print(" "); //creates offset for alignment
+
+       System.out.print("College Graduated: ");
+
+       System.out.println(college);
+
+   }
+
+ 
+
+}
+Main.java
+
+package lastName;
+
+ 
+
+import java.util.ArrayList;
+
+import java.util.Scanner;
+
+ 
+
+public class LastNameMain {
+
+  
+
+   public static void main(String args[]) {
+
+       //create an ArrayList object to store all students
+
+       ArrayList<Student> students = new ArrayList<Student>();
+
+       //create Scanner object to get input from user
+
+       Scanner s = new Scanner(System.in);
+
+       //create a variable to store user input
+
+       String input;
+
+       while(true) {
+
+           //prompt to keep asking user if more students to be created until user says no
+
+           System.out.print("Do you have more student to enter (Y for yes, N for no): ");
+
+           //get user input
+
+           input = s.nextLine();
+
+           //check for valid input
+
+           if(input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("N")) {
+
+//check if user says no
+
+               if(input.equalsIgnoreCase("N")) {
+
+                   //break the loop as finished entering students
+
+                   break;
+
+               }
+
+               else {
+
+                   //user entered yes
+
+                   //ask user to enter undergraduate or graduate student
+
+                   while(true) {
+
+                       System.out.print("Undergraduate or Graduate? (U for undergraduate, G for graduate):");
+
+                       //get user input
+
+                       input = s.nextLine();
+
+                       //check for valid input
+
+                       if(input.equalsIgnoreCase("U") || input.equalsIgnoreCase("G")) {
+
+                           //check for input and create student object by calling respective method
+
+                           if(input.equalsIgnoreCase("U")) {
+
+                               //user say for creating undergraduate student
+
+                               //create a undergraduate student object
+
+                               Student student = createUnderGradStudent(s);
+
+                               students.add(student);
+
+                           }
+
+                           else {
+
+                               //user say for creating graduate student
+
+                               //create a graduate student object
+
+                               Student student = createGradStudent(s);
+
+                               students.add(student);
+
+                           }
+
+                           //break the inner while loop as valid input is entered
+
+                           break;
+
+                       }
+
+                       else {
+
+                           //print error message and continue prompting user to enter input till valid input is entered
+
+                           System.out.println("Invalid Input!");
+
+                       }
+
+                   }//end of inner while loop
+
+               }
+
+           }
+
+           else {
+
+               //print error message
+
+               System.out.println("Invalid input!");
+
+           }
+
+       }//end of while loop
+
+       //close Scanner as finished entering inputs
+
+       s.close();
+
+       //print message for created student
+
+       System.out.println("Here are the students created:");
+
+       //print the entered students details
+
+       for(int i=0; i<students.size(); i++) {
+
+           //loop each student in the list
+
+           //print student number
+
+           System.out.print("Student ");
+
+           System.out.print(i+1); //add 1 as index of loop are 0 based
+
+           System.out.println(" information:");
+
+           //print each student by calling its printStudent method
+
+           students.get(i).printStudent();
+
+       }
+
+   }
+
+ 
+
+   private static Student createUnderGradStudent(Scanner s) {
+
+       //ask user to enter student name
+
+       System.out.print("Student name: ");
+
+       String name = s.nextLine(); //get user input for name
+
+       //ask user to enter id
+
+       int id;
+
+       while(true) {
+
+           //while loop to get valid id
+
+           System.out.print("Student ID: ");
+
+           //check for valid input
+
+           try {
+
+               id = s.nextInt(); //get user input
+
+               s.nextLine(); //ignore newline character
+
+               //break the while loop as valid input is entered
+
+               break;
+
+           } catch (Exception e) {
+
+               // print error message
+
+               s.nextLine() ; //ignore newline character
+
+               System.out.println("Invaid ID! (ID should be integer value)");
+
+           }
+
+       }//end of while loop
+
+       //ask user to enter gpa
+
+       float gpa;
+
+       while(true) {
+
+           //while loop to get valid gpa
+
+           System.out.print("Student GPA: ");
+
+           //check for valid input
+
+           try {
+
+               gpa = s.nextFloat(); //get user input
+
+               s.nextLine() ; //ignore newline character
+
+               //break the while loop as valid input is entered
+
+               break;
+
+           } catch (Exception e) {
+
+               // print error message
+
+               s.nextLine() ; //ignore newline character
+
+               System.out.println("Invaid GPA! (ID should be float value)");
+
+           }
+
+ }//end of while loop
+
+       //ask use for transfer student
+
+       boolean isTransfer;
+
+       while(true) {
+
+           //while loop to get valid input
+
+           System.out.print("Is student a transfer student? (Y for yes, N for no): ");
+
+           //check for valid input
+
+           String input = s.nextLine(); //get user input
+
+           if(input.equalsIgnoreCase("Y") || input.equalsIgnoreCase("N")) {
+
+               //check if user says no
+
+               if(input.equalsIgnoreCase("N")) {
+
+                   isTransfer = false;
+
+               }
+
+               else {
+
+                   //user says yes
+
+                   isTransfer = true;
+
+               }
+
+               //break the while loop as valid input is entered
+
+               break;
+
+           }
+
+           else {
+
+               // print error message
+
+               System.out.println("Invaid ID! (ID should be integer value)");
+
+           }
+
+       }//end of while loop
+
+       // create and return undergraduate student object
+
+       Student student = new UndergradStudent(name, id, gpa, isTransfer);
+
+       return student;
+
+   }
+
+ 
+
+   private static Student createGradStudent(Scanner s) {
+
+       //ask user to enter student name
+
+       System.out.print("Student name: ");
+
+       String name = s.nextLine(); //get user input for name
+
+       //ask user to enter id
+
+       int id;
+
+       while(true) {
+
+           //while loop to get valid id
+
+           System.out.print("Student ID: ");
+
+           //check for valid input
+
+           try {
+
+               id = s.nextInt(); //get user input
+
+               s.nextLine() ; //ignore newline character
+
+               //break the while loop as valid input is entered
+
+               break;
+
+           } catch (Exception e) {
+
+               // print error message
+
+               s.nextLine() ; //ignore newline character
+
+               System.out.println("Invaid ID! (ID should be integer value)");
+
+           }
+
+       }//end of while loop
+
+       //ask user to enter gpa
+
+       float gpa;
+
+       while(true) {
+
+           //while loop to get valid gpa
+
+           System.out.print("Student GPA: ");
+
+           //check for valid input
+
+           try {
+
+               gpa = s.nextFloat(); //get user input
+
+               s.nextLine() ; //ignore newline character
+
+               //break the while loop as valid input is entered
+
+               break;
+
+           } catch (Exception e) {
+
+           // print error message
+
+               s.nextLine() ; //ignore newline character
+
+               System.out.println("Invaid GPA! (ID should be float value)");
+
+           }
+
+       }//end of while loop
+
+       //ask use for college
+
+       System.out.print("What college did the student graduate from: ");
+
+       String college = s.nextLine(); //get user input for name
+
+       // create and return undergraduate student object
+
+       Student student = new GradStudent(name, id, gpa, college);
+
+       return student;
+
+   }
+
+ 
+
+}
+
+https://www.chegg.com/homework-help/questions-and-answers/two-java-structural-design-patterns-implemented-using-class-diagram-provided-programming-l-q101014765?trackid=aba135782802&strackid=e84f845ff0e3&searchid=004aa0bc-b0c7-4c66-8f98-a4a44d7f2c7d
