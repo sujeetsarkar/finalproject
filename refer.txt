@@ -567,3 +567,102 @@ public class LastNameMain {
 }
 
 https://www.chegg.com/homework-help/questions-and-answers/two-java-structural-design-patterns-implemented-using-class-diagram-provided-programming-l-q101014765?trackid=aba135782802&strackid=e84f845ff0e3&searchid=004aa0bc-b0c7-4c66-8f98-a4a44d7f2c7d
+
+
+Creational Patterns:
+
+Factory Method Pattern:
+
+CourseFactory
+ConcentrationFactory
+ProgramFactory
+FacultyFactory
+Singleton Pattern:
+
+DepartmentChair
+GraduateAdvisor
+UndergraduateAdvisor
+Structural Patterns:
+
+Composite Pattern:
+
+Concentration
+Program
+Proxy Pattern:
+
+CourseProxy
+Behavioral Patterns:
+
+Observer Pattern:
+
+CourseObserver
+EnrollmentObserver
+Iterator Pattern:
+
+CourseIterator
+ConcentrationIterator
+ProgramIterator
+
+
+
+====================
+
+public class TestClass {
+
+    public static void main(String[] args) {
+
+        // Creating the Department
+        Department department = new Department();
+
+        // Creating Courses
+        Course course1 = new Course("CIS100", "Introduction to Computers", "Introduction to Computers");
+        Course course2 = new Course("CIS200", "Data Structures", "Data Structures");
+        Course course3 = new Course("CIS300", "Operating Systems", "Operating Systems");
+
+        // Adding Courses to the Department
+        department.addCourse(course1);
+        department.addCourse(course2);
+        department.addCourse(course3);
+
+        // Creating Students
+        Student student1 = new Student("John", "Doe");
+        Student student2 = new Student("Jane", "Doe");
+
+        // Enrolling Students in Courses
+        department.enroll(student1, course1);
+        department.enroll(student1, course2);
+        department.enroll(student2, course2);
+        department.enroll(student2, course3);
+
+        // Dropping Students from Courses
+        department.drop(student1, course2);
+
+        // Displaying Enrollments
+        department.displayEnrollments();
+
+        // Setting Enrollment Limits
+        course1.setEnrollmentLimit(1);
+        course2.setEnrollmentLimit(1);
+
+        // Enrolling Students beyond Enrollment Limit
+        department.enroll(student1, course1);
+        department.enroll(student2, course2);
+
+        // Displaying Waitlist
+        department.displayWaitlist(course1);
+        department.displayWaitlist(course2);
+
+        // Creating a Chairperson
+        Chairperson chairperson = new Chairperson("David", "Smith");
+
+        // Setting Chairperson for the Department
+        department.setChairperson(chairperson);
+
+        // Enrolling Students from Waitlist
+        department.drop(student2, course2);
+        department.enrollFromWaitlist(course2);
+
+        // Displaying Enrollments
+        department.displayEnrollments();
+    }
+}

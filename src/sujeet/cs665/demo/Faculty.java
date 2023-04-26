@@ -29,6 +29,9 @@ public class Faculty {
 	public List<Course> getCoursesTaught() {
 		return coursesTaught;
 	}
+	public int getGradePoints(Course course, Student student) {
+		return 0;
+	}
 	
 	public void getThesisAdvisingStudents() {
 		
